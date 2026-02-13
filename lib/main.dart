@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           bodySmall: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
       ),
-      home: ProductDetails(),
+      home: HomePage(),
     );
   }
 }

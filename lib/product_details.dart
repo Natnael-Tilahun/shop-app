@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/global_variables.dart';
 
 class ProductDetails extends StatefulWidget {
-  const ProductDetails({super.key});
+  final Map<String, Object> product;
+  const ProductDetails({super.key, required this.product});
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  final product = products[0];
-  late int selectedSize;
+  // final product = products[0];
+  late int selectedSize = 0;
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      selectedSize = (product['sizes'] as List<int>)[0];
+      selectedSize = (widget.product['sizes'] as List<int>)[0];
     });
   }
 
@@ -26,16 +27,17 @@ class _ProductDetailsState extends State<ProductDetails> {
       appBar: AppBar(title: Center(child: Text('Details'))),
       body: Column(
         children: [
-          Center(
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Text(
-              product['title'] as String,
+              widget.product['title'] as String,
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Spacer(),
           Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Image.asset(product['imageUrl'] as String),
+            child: Image.asset(widget.product['imageUrl'] as String),
           ),
           Spacer(flex: 2),
           Container(
@@ -49,16 +51,17 @@ class _ProductDetailsState extends State<ProductDetails> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'ETB${product["price"]}',
+                  'ETB${widget.product["price"]}',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(
                   height: 50,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: (product['sizes'] as List<int>).length,
+                    itemCount: (widget.product['sizes'] as List<int>).length,
                     itemBuilder: (context, index) {
-                      final size = (product['sizes'] as List<int>)[index];
+                      final size =
+                          (widget.product['sizes'] as List<int>)[index];
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
